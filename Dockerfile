@@ -58,3 +58,5 @@ RUN apt-get -y clean && \
 # set entry point
 WORKDIR "/opt/cobaltstrike"
 ENTRYPOINT ["./teamserver"]
+EXPOSE 80/tcp 443/tcp
+
