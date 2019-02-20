@@ -26,7 +26,7 @@ SHELL ["/bin/bash", "-c"]
 
 # install proper tools
 RUN apt-get update && \
-    apt-get install -y wget curl net-tools sudo
+    apt-get install -y wget curl net-tools sudo host
 
 # install oracle jave
 RUN cd /opt && \
