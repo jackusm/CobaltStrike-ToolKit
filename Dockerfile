@@ -14,14 +14,14 @@
 FROM ubuntu:16.04
 
 # Dockerfile metadata
-MAINTAINER Killswitch-GUI
-LABEL version="1.0"
-LABEL description="Dockerfile base for CobaltStrike."
+MAINTAINER Mpgough
+LABEL version="1.1"
+LABEL description="Dockerfile base for CobaltStrike. Updated to Java 11.0.2"
 
 # setup local env
 ARG cskey
 ENV cs_key ${cskey}
-ENV JAVA_HOME /opt/jdk-10.0.2
+ENV JAVA_HOME /opt/jdk-11.0.2
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # docker hardcoded sh...
@@ -33,14 +33,14 @@ RUN apt-get update && \
 
 # install oracle jave
 RUN cd /opt && \
-    wget -c --header 'Cookie: oraclelicense=accept-securebackup-cookie' http://download.oracle.com/otn-pub/java/jdk/10.0.2+13/19aef61b38124481863b1413dce1855f/jdk-10.0.2_linux-x64_bin.tar.gz && \
-    tar xvf jdk-10.0.2_linux-x64_bin.tar.gz && \
-    cd jdk-10.0.2 && \
+    wget -c https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz && \
+    tar xvf openjdk-11.0.2_linux-x64_bin.tar.g && \
+    cd jdk-11.0.2 && \
     source /etc/bash.bashrc && \
-    sudo update-alternatives --install '/usr/bin/java' 'java' '/opt/jdk-10.0.2/bin/java' 1 && \
-    sudo update-alternatives --install '/usr/bin/javac' 'javac' '/opt/jdk-10.0.2/bin/javac' 1 && \
-    sudo update-alternatives --set 'java' '/opt/jdk-10.0.2/bin/java' && \
-    sudo update-alternatives --set 'javac' '/opt/jdk-10.0.2/bin/javac'
+    sudo update-alternatives --install '/usr/bin/java' 'java' '/opt/jdk-11.0.2/bin/java' 1 && \
+    sudo update-alternatives --install '/usr/bin/javac' 'javac' '/opt/jdk-11.0.2/bin/javac' 1 && \
+    sudo update-alternatives --set 'java' '/opt/jdk-11.0.2/bin/java' && \
+    sudo update-alternatives --set 'javac' '/opt/jdk-11.0.2/bin/javac'
 
 # install CobaltStrike with license key and update
 RUN var=$(curl 'https://www.cobaltstrike.com/download' -XPOST -H 'Referer: https://www.cobaltstrike.com/download' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Origin: https://www.cobaltstrike.com' -H 'Host: www.cobaltstrike.com' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Connection: keep-alive' -H 'Accept-Language: en-us' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0.1 Safari/604.3.5' --data "dlkey=$cs_key" | sed -n 's/.*href="\([^"]*\).*/\1/p' | grep /downloads/ | cut -d '.' -f 1) && \
