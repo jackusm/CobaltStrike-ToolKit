@@ -6,7 +6,7 @@
 #   3) docker logs -f {docker ps -> CONTAINER ID}
 #      - Example: docker logs -f 38830d90537f
 #    NOTE: you can eaily name the docker like so as well:
-#      - docker run -d -p 192.168.2.238:50050:50050 --restart-always --name "war_games"  cobaltstrike/cs 192.168.2.238 password
+#      - docker run -d -p 192.168.2.238:50050:50050 --restart-always --restart always -v /opt/Malleable-C2-Profiles:/Malleable-C2-Profiles --name "war_games"  cobaltstrike/cs 192.168.2.238 password /Malleable-C2-Profiles/APT/havex.profile
 #      - docker logs -f "war_games"
 #      - To kill CS: docker kill war_games
 #    NOTE: to go interactive we need to bypass the ENTRYPOINT
