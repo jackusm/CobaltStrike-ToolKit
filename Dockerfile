@@ -6,7 +6,7 @@
 #   3) docker logs -f {docker ps -> CONTAINER ID}
 #      - Example: docker logs -f 38830d90537f
 #    NOTE: you can eaily name the docker like so as well:
-#      - docker run -d -p 192.168.2.238:50050:50050 --name "war_games"  cobaltstrike/cs 192.168.2.238 password
+#      - docker run -d -p 192.168.2.238:50050:50050 --restart-always --name "war_games"  cobaltstrike/cs 192.168.2.238 password
 #      - docker logs -f "war_games"
 #      - To kill CS: docker kill war_games
 #    NOTE: to go interactive we need to bypass the ENTRYPOINT
@@ -34,7 +34,7 @@ RUN apt-get update && \
 # install oracle jave
 RUN cd /opt && \
     wget -c https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz && \
-    tar xvf openjdk-11.0.2_linux-x64_bin.tar.g && \
+    tar xvf openjdk-11.0.2_linux-x64_bin.tar.gz && \
     cd jdk-11.0.2 && \
     source /etc/bash.bashrc && \
     sudo update-alternatives --install '/usr/bin/java' 'java' '/opt/jdk-11.0.2/bin/java' 1 && \
